@@ -1,0 +1,96 @@
+-- Insert data into AssignedUser table
+INSERT INTO AssignedUser (User_User_Id, Task_Task_Id, AssigedUser_Id, Project_Role, Assigned)
+VALUES
+    (1, 1, 1, 'Wlasciciel', '2024-01-03 12:00:00'),
+    (2, 2, 2, 'Czlonek', '2024-01-04 14:30:00'),
+    (3, 3, 3, 'Czlonek', '2024-01-05 10:45:00');
+
+-- Insert data into Category table
+INSERT INTO Category (Category_Id, Name, Description)
+VALUES
+    (1, 'Dom', 'Zwiazane z gospodarstwem domowym'),
+    (2, 'Praca', 'Zwiazane z pracą, lub szkołą'),
+    (3, 'Osobiste', 'Zadania osobiste, tylko dla ciebie');
+
+-- Insert data into Task table
+INSERT INTO Task (Task_Id, Title, Description, Priority, Deadline, Category_Id, Is_Finished)
+VALUES
+    (1, 'Kupic prezent dla taty', 'Moze jakies buty do biegania?', 'Wysoki', '2024-01-20 18:00:00', 3, false),
+    (2, 'Skonczyc projekt strony', 'Wszystko zapisane w chmurze', 'Sredni', '2024-01-25 15:00:00', 2, false),
+    (3, 'Wyniesc smieci', 'Ze smietnika powoli zaczynaja wylewac sie smieci', 'Niski', '2024-01-29 12:00:00', 1, false);
+
+-- Insert data into User table
+INSERT INTO User (User_Id, Username, Email, Password, Role, Profile_Picture, Language)
+VALUES
+    (1, 'janKowalski', 'jk@example.com', 'password123', 'user', 'https://fotoblysk.com/wp-content/uploads/2016/07/xRing-light-portret-1.jpg.pagespeed.ic.PuM47N375f.jpg', 'PL'),
+    (2, 'JakubBon', 'jakbon@example.com', 'password123', 'user', 'https://geex.x-kom.pl/wp-content/uploads/2022/05/linkedin-profilowe-1024x684.jpeg', 'PL'),
+    (3, 'JoannaAdmin', 'admin@example.com', 'password123', 'admin', 'https://us.123rf.com/450wm/kritchanut/kritchanut1308/kritchanut130800064/21738699-zdj%C4%99cie-profilowe-cz%C5%82owiek-avatar-wektor.jpg', 'PL');
+
+
+
+
+
+
+
+
+
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2024-01-03 17:09:48.741
+
+-- tables
+-- Table: AssignedUser
+CREATE TABLE AssignedUser (
+    User_User_Id int  NOT NULL,
+    Task_Task_Id int  NOT NULL,
+    AssigedUser_Id int  NOT NULL,
+    Project_Role varchar(25)  NOT NULL,
+    Assigned datetime  NOT NULL,
+    CONSTRAINT AssignedUser_pk PRIMARY KEY (AssigedUser_Id)
+);
+
+-- Table: Category
+CREATE TABLE Category (
+    Category_Id int  NOT NULL,
+    Name varchar(25)  NOT NULL,
+    Description varchar(50)  NOT NULL,
+    CONSTRAINT Category_pk PRIMARY KEY (Category_Id)
+);
+
+-- Table: Task
+CREATE TABLE Task (
+    Task_Id int  NOT NULL,
+    Title varchar(25)  NOT NULL,
+    Description varchar(50)  NOT NULL,
+    Priority varchar(25)  NOT NULL,
+    Deadline datetime  NOT NULL,
+    Category_Id int  NOT NULL,
+    Is_Finished boolean  NOT NULL,
+    CONSTRAINT Task_pk PRIMARY KEY (Task_Id)
+);
+
+-- Table: User
+CREATE TABLE User (
+    User_Id int  NOT NULL,
+    Username varchar(25)  NOT NULL,
+    Email varchar(25)  NOT NULL,
+    Password varchar(25)  NOT NULL,
+    Role varchar(25)  NOT NULL,
+    Profile_Picture varchar(150)  NOT NULL,
+    Language varchar(10)  NOT NULL,
+    CONSTRAINT User_pk PRIMARY KEY (User_Id)
+);
+
+-- foreign keys
+-- Reference: Table_5_Task (table: AssignedUser)
+ALTER TABLE AssignedUser ADD CONSTRAINT Table_5_Task FOREIGN KEY Table_5_Task (Task_Task_Id)
+    REFERENCES Task (Task_Id);
+
+-- Reference: Table_5_User (table: AssignedUser)
+ALTER TABLE AssignedUser ADD CONSTRAINT Table_5_User FOREIGN KEY Table_5_User (User_User_Id)
+    REFERENCES User (User_Id);
+
+-- Reference: Task_Category (table: Task)
+ALTER TABLE Task ADD CONSTRAINT Task_Category FOREIGN KEY Task_Category (Category_Id)
+    REFERENCES Category (Category_Id);
+
+-- End of file.
